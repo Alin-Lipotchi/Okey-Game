@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okey Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-window">
+        <div class="title-bar">
+            <h1>Okey Game</h1>
+        </div>
+        <div class="table">
+            <div class="card-slots">
+                <div data-place="card-line" id="card-place-1" class="placeholder"></div>
+                <div data-place="card-line" id="card-place-2" class="placeholder"></div>
+                <div data-place="card-line" id="card-place-3" class="placeholder"></div>
+                <div data-place="card-line" id="card-place-4" class="placeholder"></div>
+                <div data-place="card-line" id="card-place-5" class="placeholder"></div>
+            </div>
+            
+            <div class="session">
+                <div class="session-cards">
+                    <div data-place="session-line" id="session-place-1" class="placeholder"></div>
+                    <div data-place="session-line" id="session-place-2" class="placeholder"></div>
+                    <div data-place="session-line" id="session-place-3" class="placeholder"></div>
+                    <div id="session-score" class="session-score black-bg-score">0</div>
+                </div>
+                
+            </div>
+
+            <div class="deck-and-score">
+                <div class="deck">
+                    <div class="placeholder">
+                        <div data-place="card-pack" id="card-set-1" class="card-set"></div>
+                        <div data-place="card-pack" id="card-set-2" class="card-set"></div>
+                        <div data-place="card-pack" id="card-set-3" class="card-set"></div>
+                        <div data-place="card-pack" id="card-set-4" class="card-set"></div>
+                    </div>
+                    <span>X</span>
+                    <p id="cards-left" class="black-bg-score">24</p>
+                </div>
+                <div class="total-score">
+                    <span>Score</span>
+                    <p id="total-score" class="black-bg-score">0</p>
+                </div>
+            </div>
+
+            <div class="success-overlay">
+                <div class="success-text"></div>
+                <div class="fireworks"></div>
+            </div>
+
+            <div class="info-box">
+                <div class="text-area">
+                    <h2>How to play?</h2>
+                    <p>Press the "Start" button to begin the game. Upon pressing the button you will receive 5 cards on the line.</p>
+                    <p>By pressing left click on a card in line, you send the card to session. By pressing the right click, you will discard the card.</p>
+                    <p>To get points you need to make card groups. The groups consist of 3 cards that are either the consecutive or the same number. Having 3 consecutive cards of the same number will give more points than 3 cards of different colors. The amount of points you receive from a group will be displayed for a short amount of time on the left side of the group. If the group is not valid, the cards will be sent back on line.</p>
+                    <p>After creating groups or discarding cards, you can use the card pack to receive more cards. It will give you enough cards to fill all the empty slots in line as long you as have cards left in pack. The amount of cards left in pack is displayed on left side of the pack.</p>
+                    <p>On the bottom left side you can see the total score of the current game. The goal is to reach as many points as possible.</p>
+                    <p>When there are no more possible combinations, you can "End" the game. Your top 10 scores will be saved in the highscore section.</p>
+                    <p>Have Fun!</p>
+
+                    <h2>Combinations</h2>
+                    <p>Here are listed all the combinations available and how many points each of them give. On second column in paranthesis it's the points you receive if the group has all cards of the same color.</p>
+                    <div class="combinations">
+                        <div class="column">
+                            <p>1 1 1 - 20 points</p>
+                            <p>2 2 2 - 30 points</p>
+                            <p>3 3 3 - 40 points</p>
+                            <p>4 4 4 - 50 points</p>
+                            <p>5 5 5 - 60 points</p>
+                            <p>6 6 6 - 70 points</p>
+                            <p>7 7 7 - 80 points</p>
+                            <p>8 8 8 - 90 points</p>
+                        </div>
+                        <div class="column">
+                            <p>1 2 3 - 10 points (50)</p>
+                            <p>2 3 4 - 20 points (60)</p>
+                            <p>3 4 5 - 30 points (70)</p>
+                            <p>4 5 6 - 40 points (80)</p>
+                            <p>5 6 7 - 50 points (90)</p>
+                            <p>6 7 8 - 60 points (100)</p>
+                        </div>
+                    </div>
+                    
+                    <h2>Other Info</h2>
+                    <p>This project was created by <a target="_blank" href="https://github.com/Alin-Lipotchi">Alin Lipotchi</a>. No copyright reserved.</p>
+                </div>
+            </div>
+
+            <div class="highscore-box">
+
+            </div>
+            
+            <div class="final-score">
+                <h3>Your score</h3>
+                <span class="final-score-value">0</span>
+                <button class="close-button">x</button>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="start-button" class="cmd-btn">Start</button>
+            <button id="high-scores-button" class="cmd-btn">High Scores</button>
+            <button id="info-button" class="info">?</button>
+        </div>
+    </div>
+</body>
+<script src="app.js" type="module"></script>
+</html>

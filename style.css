@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+body {
+    background: #111;
+    padding: 1rem;
+    height: 100vh;
+}
+
+.game-window {
+    background: url("./img/background.jpg");
+    width: 100%;
+    min-width: 368px;
+    max-width: 560px;
+    height: 620px;
+    border: 4px ridge #444;
+    position: relative;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+}
+
+.title-bar {
+    border: 3px ridge #555;
+    border-radius: 5px;
+    position: absolute;
+    top: -10px;
+    left: -4px;
+    background: url("./img/background-orange.jpg");
+    height: 28px;
+    width: calc(100% + 8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-bar h1 {
+    color: #eee;
+    font-weight: 400;
+    font-size: .8rem;
+}
+
+.table {
+    background: url("./img/window-background.jpg") no-repeat center center/cover;
+    width: 90%;
+    height: 82%;
+    margin: 3rem auto 0 auto;
+    outline: 3px ridge #555;
+    border: 1px solid transparent;
+    border-image: url("./img/border.png") 2 round;
+    outline-offset: 2px;
+    box-shadow: rgb(32, 32, 32) 3px 3px 6px 0px inset, rgba(32, 32, 32, 0.5) -3px -3px 6px 1px inset;
+    color: #eee;
+}
+
+.buttons {
+    margin: 0 auto;
+}
+
+.cmd-btn, .info, .close-button {
+    width: 100px;
+    align-self: center;
+    margin: 1rem;
+    color: #eee;
+    background: url("./img/small-bg.jpg");
+    font-weight: 300;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.4) 2px 3px 1px, rgba(0, 0, 0, 0.3) 1px 3px 1px -3px, rgba(255, 255, 255, 0.4) 1px 2px 0px inset;
+    border-radius: 5px;
+    padding: .1rem 0;
+    border: 1px ridge #555;
+    margin-top: 1.2rem;
+    transition: filter .1s ease-in-out;
+}
+
+.cmd-btn:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+.card-slots {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.4);
+    margin: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 15px;
+}
+
+.session {
+    background-image: linear-gradient(to right, #071603, #0e1b06, #122008, #162609, #1a2b09, #1a2b09, #1a2b09, #1a2b09, #162609, #122008, #0e1b06, #071603);
+    border-radius: 15px;
+    margin: 1rem;
+    border: 3px ridge #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.session-cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    position: relative;
+    border: 3px ridge #595854;
+    border-radius: 5px;
+}
+
+.session-score {
+    position: absolute;
+    right: -41px;
+    top: 34%;
+    width: 41px;
+    text-align: center;
+}
+
+.black-bg-score {
+    background: #070707;
+    border: 1px solid #666;
+    border-top: 1px solid #333;
+    border-left: none;
+    box-shadow: inset 0 0 10px #000;
+    padding: .22rem .47rem;
+    font-size: 0.9rem;
+}
+
+.deck-and-score {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    background: #0f271c;
+    margin: 0 1rem;
+    margin-top: 4.8rem;
+    outline: 2px ridge #405b48;
+}
+
+.deck, .total-score {
+    display: flex;
+    align-items: end;
+    font-size: .9rem;
+}
+
+.deck-and-score span {
+    margin: 0 .8rem;
+    margin-bottom: 6px;
+}
+
+.deck-and-score .black-bg-score {
+    margin-bottom: 2px;
+}
+
+.black-bg-score#cards-left {
+    width: 32px;
+    text-align: center;
+}
+
+.black-bg-score#total-score {
+    width: 100px;
+    text-align: center;
+}
+
+.placeholder {
+    background: url("./img/cards/card-placeholder.jpg") no-repeat center center/cover;
+    height: 85px;
+    flex-basis: 65px;
+    width: 65px;
+    margin: 1rem .5rem 0 .5rem;
+    border: 2px ridge #7E7860;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.session-cards .placeholder, .deck .placeholder {
+    position: relative;
+    margin: 0;
+}
+
+.session-cards .placeholder:first-child {
+    border-right: none;
+}
+
+.session-cards .placeholder:last-child {
+    border-left: none;
+}
+
+.card {
+    cursor: pointer;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    margin: 2px;
+}
+
+.card-set {
+    position: absolute;
+    background: url("./img/cards/card-set.jpg") no-repeat;
+    width: calc(100% - 2px);
+    height: calc(100% - 3px);
+    margin: 1px;
+    cursor: pointer;
+}
+
+#card-set-1 { top: 0; left: 0; }
+#card-set-2 { top: -2px; left: -2px; }
+#card-set-3 { top: -4px; left: -4px; }
+#card-set-4 { top: -6px; left: -6px; }
+
+.success-overlay {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: none;
+}
+
+.success-text {
+    background: url("./img/succes.png") no-repeat;
+    background-size: contain;
+    width: 210px;
+    height: 70px;
+    position: absolute;
+    left: calc(50% - 105px);
+    top: calc(50% + 15px);
+    z-index: 3;
+    opacity: 0;
+    transition: 0.2s ease-in-out all;
+}
+
+.fireworks {
+    background: url("./img/fireworks.gif") no-repeat;
+    background-size: contain;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: calc(10%);
+    top: calc(35%);
+    opacity: 0;
+    transition: .2s ease-in-out all;
+}
+
+.info, .close-button {
+    position: absolute;
+    right: 24px;
+    bottom: 20px;
+    width: 22px;
+    margin: 0;
+    text-align: center;
+    border-radius: 50%;
+    font-size: .8rem;
+    font-weight: 400;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.info-box, .highscore-box {
+    width: 100%;
+    height: calc(100% - 18px);
+    position: absolute;
+    top: 18px;
+    left: 0;
+    background: url("./img/background.jpg");
+    z-index: 3;
+    display: none;
+    transition: .1s ease-in-out all;
+    opacity: 0;
+}
+
+.text-area {
+    background: #070707;
+    width: calc(100% - 3rem);
+    height: calc(100% - 5rem);
+    margin: 1.5rem;
+    padding: 1rem;
+    outline: 3px ridge #555;
+    box-shadow: rgb(32, 32, 32) 3px 3px 6px 0px inset, rgba(32, 32, 32, 0.5) -3px -3px 6px 1px inset;
+    overflow-y: scroll;
+}
+
+.text-area h2 {
+    font-weight: 400;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.text-area p {
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.text-area .combinations {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.text-area .combinations p {
+    margin-right: .8rem;
+    margin-bottom: .5rem;
+}
+
+.text-area a {
+    color: #eee;
+    font-weight: 400;
+    text-decoration: underline;
+}
+
+.final-score {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.95);
+    top: 30%;
+    left: calc(50% - 150px);
+    height: 200px;
+    width: 300px;
+    text-align: center;
+    z-index: 2;
+    border-radius: 15px;
+    outline: 3px ridge #555;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transform: scale(0);
+    transition: transform .2s ease-in-out;
+} 
+
+.final-score h3 {
+    margin-top: 3rem;
+    font-size: 2rem;
+}
+
+.final-score span {
+    font-size: 2.4rem;
+}
+
+.close-button {
+    right: 5px;
+    top: 5px;
+    height: 24px;
+}
+
+@media screen and (min-width:529px) {
+    .game-window {
+        height: 520px;
+    }
+
+    .session {
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .deck-and-score {
+        width: 380px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .success-text {
+        top: calc(50% - 35px);
+    }
+
+    .fireworks {
+        left: calc(20%);
+        top: calc(20%);
+    }
+
+    .info {
+        right: 32px;
+        bottom: 16px;
+    }
+
+    .text-area .combinations p {
+        margin-right: 3rem;
+    }
+
+    .final-score {
+        left: calc(50% - 175px);
+        width: 350px;
+    }   
+}
