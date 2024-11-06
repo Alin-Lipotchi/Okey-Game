@@ -33,7 +33,7 @@ const startBtn = document.querySelector("#start-button");
 const infoBtn = document.querySelector("#info-button");
 const infoBox = document.querySelector(".info-box");
 infoBox.style.display = "none";
-const highscoreBox = document.querySelector(".highscore-box");
+const highscoresOverlay = document.querySelector(".highscores");
 
 const finalScoreOverlay = document.querySelector(".final-score");
 const finalScore = document.querySelector(".final-score-value");
@@ -45,6 +45,8 @@ let sessionCardsValues = {};
 let fiveCardsInLine = false;
 let gameIsStarted = false;
 let highScores = [];
+let isFinalScoreOverlayShown = false;
+let isHighscoresDisplayed = false;
 
 // Functions
 
@@ -89,8 +91,6 @@ const startGame = e => {
         fiveCardsInLine = false;
         totalScore = 0;
         e.target.textContent = "Start";
-
-        finalScoreOverlay.style.transform = "scale(1)";
     }
 }
 
@@ -261,18 +261,21 @@ const showInfo = (e) => {
 
 const displayScoreSmoothly = (totalScore) => {
     let intervalScore = 0;
+    finalScoreOverlay.style.transform = "scale(1)";
+    isFinalScoreOverlayShown = true;
     intervalScoreSet(0.2, 4, intervalScore, totalScore);
 }
 
 const intervalScoreSet = (threshold, rate, intervalScore, totalScore) => {
     let intervalID = setInterval(() => {
-        if(totalScore === 0) threshold = 1;
+        if(totalScore === 0 || !isFinalScoreOverlayShown) threshold = 1;
         intervalScore++;
         if(intervalScore > totalScore * threshold) {
             intervalScore--; clearInterval(intervalID);
             if(threshold !== 1) intervalScoreSet(threshold + 0.2, rate + 4, intervalScore, totalScore);
         }
         if(intervalScore !== 0) finalScore.textContent = intervalScore;
+        console.log(isFinalScoreOverlayShown, threshold);
     },rate)
 }
 
@@ -294,9 +297,21 @@ if(!localStorage.getItem("highScores")) {
 }
 highScores = JSON.parse(localStorage.getItem("highScores"));
 
+
 const displayHighscores = (e) => {
     e.preventDefault();
-    console.log(highScores.sort((a, b) => b - a));
+    if(isHighscoresDisplayed) {
+        highscoresOverlay.style.transform = "scale(0)";
+        isHighscoresDisplayed = false;
+    } else {
+        highscoresOverlay.style.transform = "scale(1";
+        isHighscoresDisplayed = true;
+    }
+    highscoresOverlay.innerHTML = "";
+    highscoresOverlay.innerHTML = "<h3>Highscores</h3>";
+    highScores.forEach(score => {
+        highscoresOverlay.innerHTML += `<div class="highscore-container"><h4>${score}</h4></div>`;
+    });
 }
 
 // Event Listeners
@@ -307,5 +322,5 @@ cardSetTwo.addEventListener("click", addCardFromPack);
 cardSetThree.addEventListener("click", addCardFromPack);
 cardSetFour.addEventListener("click", addCardFromPack);
 infoBtn.addEventListener("click", showInfo);
-closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)";})
+closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)"; isFinalScoreOverlayShown = false;})
 hiScoreBtn.addEventListener("click", displayHighscores);

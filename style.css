@@ -268,7 +268,7 @@ body {
     z-index: 4;
 }
 
-.info-box, .highscore-box {
+.info-box {
     width: 100%;
     height: calc(100% - 18px);
     position: absolute;
@@ -319,7 +319,7 @@ body {
     text-decoration: underline;
 }
 
-.final-score {
+.final-score, .highscores{
     position: absolute;
     background: rgba(0, 0, 0, 0.95);
     top: 30%;
@@ -335,6 +335,26 @@ body {
     transition: transform .2s ease-in-out;
 } 
 
+.highscores {
+    top: 16%;
+    height: 342px;
+}
+
+.highscores h3 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.highscore-container {
+    display: flex;
+    justify-content: center;
+    margin: .5rem;
+}
+
+/* .highscore-container h4 {
+    margin-right: 1rem;
+} */
+
 .final-score h3 {
     margin-top: 3rem;
     font-size: 2rem;
@@ -348,6 +368,12 @@ body {
     right: 5px;
     top: 5px;
     height: 24px;
+}
+
+@media screen and (max-width:400px) {
+     body {
+        padding: 1rem 0;    
+     }
 }
 
 @media screen and (min-width:529px) {
