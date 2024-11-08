@@ -272,7 +272,7 @@ const intervalScoreSet = (threshold, rate, intervalScore, totalScore) => {
         intervalScore++;
         if(intervalScore > totalScore * threshold) {
             intervalScore--; clearInterval(intervalID);
-            if(threshold !== 1) intervalScoreSet(threshold + 0.2, rate + 4, intervalScore, totalScore);
+            if(threshold !== 1) intervalScoreSet(threshold + 0.2, rate + 2, intervalScore, totalScore);
         }
         if(intervalScore !== 0) finalScore.textContent = intervalScore;
         console.log(isFinalScoreOverlayShown, threshold);

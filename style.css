@@ -70,7 +70,6 @@ body {
 
 .cmd-btn, .info, .close-button {
     width: 100px;
-    align-self: center;
     margin: 1rem;
     color: #eee;
     background: url("./img/small-bg.jpg");
