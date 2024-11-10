@@ -40,15 +40,41 @@ const finalScore = document.querySelector(".final-score-value");
 const closeButton = document.querySelector(".close-button");
 const hiScoreBtn = document.querySelector("#high-scores-button");
 
+const gameWindow = document.querySelector(".game-window");
+const loadingScreen = document.querySelector(".loading-screen");
+const cardsPreloader = document.querySelector(".cards-preloader")
+
 let totalScore = 0;
 let sessionCardsValues = {}; 
 let fiveCardsInLine = false;
 let gameIsStarted = false;
 let highScores = [];
-let isFinalScoreOverlayShown = false;
 let isHighscoresDisplayed = false;
 
 // Functions
+
+const hideLoadingScreen = () => {
+    setTimeout(() => {
+        loadingScreen.style.opacity = "0";
+        gameWindow.style.filter = "blur(0)";
+    }, 2000)
+    setTimeout(() => {
+        loadingScreen.style.display = "none";
+    }, 2500)
+    loadingScreen.style.transition = "ease-in-out .5s all";
+}
+
+hideLoadingScreen();
+
+const preloadCards = () => {
+    createCards();
+    console.log(currentCardsArr);
+    setTimeout(() => {
+        currentCardsArr.forEach(card => {
+            cardsPreloader.innerHTML += card;
+        },100);
+    });
+}
 
 const startGame = e => {
     e.preventDefault();
@@ -65,8 +91,6 @@ const startGame = e => {
         gameIsStarted = true;
 
         finalScoreOverlay.style.transform = "scale(0)";
-        setTimeout(() => {finalScore.textContent = 0;}, 200)
-        
     } else {
         gameIsStarted = false;
         cardsLeft.textContent = 24;
@@ -83,8 +107,8 @@ const startGame = e => {
         cardSetThree.style.display = "block";
         cardSetFour.style.display = "block";
 
-        displayScoreSmoothly(totalScore);
-        setTimeout(() => {displayScoreSmoothly(totalScore)}, 300)
+        finalScore.textContent = totalScore;
+        finalScoreOverlay.style.transform = "scale(1)";
         updateHighscoresList();
 
         totalScoreElement.textContent = "0";
@@ -100,6 +124,9 @@ const createCards = () => {
         return `<div class="card" style="background: url('${card.location}')" data-number="${card.number}" data-color="${card.color}"></div>`
     });
 }
+
+
+preloadCards();
 
 
 const handleCardClick = (e) => {
@@ -259,26 +286,6 @@ const showInfo = (e) => {
     }
 }
 
-const displayScoreSmoothly = (totalScore) => {
-    let intervalScore = 0;
-    finalScoreOverlay.style.transform = "scale(1)";
-    isFinalScoreOverlayShown = true;
-    intervalScoreSet(0.2, 4, intervalScore, totalScore);
-}
-
-const intervalScoreSet = (threshold, rate, intervalScore, totalScore) => {
-    let intervalID = setInterval(() => {
-        if(totalScore === 0 || !isFinalScoreOverlayShown) threshold = 1;
-        intervalScore++;
-        if(intervalScore > totalScore * threshold) {
-            intervalScore--; clearInterval(intervalID);
-            if(threshold !== 1) intervalScoreSet(threshold + 0.2, rate + 2, intervalScore, totalScore);
-        }
-        if(intervalScore !== 0) finalScore.textContent = intervalScore;
-        console.log(isFinalScoreOverlayShown, threshold);
-    },rate)
-}
-
 const updateHighscoresList = () => {
     if(highScores.length < 10) {
         highScores.push(totalScore);
@@ -322,5 +329,5 @@ cardSetTwo.addEventListener("click", addCardFromPack);
 cardSetThree.addEventListener("click", addCardFromPack);
 cardSetFour.addEventListener("click", addCardFromPack);
 infoBtn.addEventListener("click", showInfo);
-closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)"; isFinalScoreOverlayShown = false;})
+closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)";})
 hiScoreBtn.addEventListener("click", displayHighscores);

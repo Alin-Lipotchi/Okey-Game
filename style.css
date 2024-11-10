@@ -11,10 +11,33 @@
     user-select: none; /* Standard syntax */
 }
 
+.loading-screen {
+    width: 100vw;
+    height: 100vh;
+    background: #111;
+    color: #ccc;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 4px;
+}
+
+.loading-dots {
+    background: url("./img/loading-dots.gif") no-repeat center center/cover;
+    width: 25px;
+    height: 5px;
+    margin-top: 1rem;
+}
+
 body {
     background: #111;
     padding: 1rem;
     height: 100vh;
+    position: relative;
 }
 
 .game-window {
@@ -29,6 +52,8 @@ body {
     display: flex;
     flex-direction: column;
     margin: 1rem auto;
+    filter: blur(10px);
+    transition: 1s ease-in-out filter;
 }
 
 .title-bar {
@@ -331,7 +356,7 @@ body {
     outline: 3px ridge #555;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     transform: scale(0);
-    transition: transform .2s ease-in-out;
+    transition: transform .1s ease-in-out;
 } 
 
 .highscores {
@@ -349,10 +374,6 @@ body {
     justify-content: center;
     margin: .5rem;
 }
-
-/* .highscore-container h4 {
-    margin-right: 1rem;
-} */
 
 .final-score h3 {
     margin-top: 3rem;
