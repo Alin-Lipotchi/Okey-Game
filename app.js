@@ -50,6 +50,7 @@ let fiveCardsInLine = false;
 let gameIsStarted = false;
 let highScores = [];
 let isHighscoresDisplayed = false;
+let isFinalScoreDisplayed = false;
 
 // Functions
 
@@ -68,13 +69,13 @@ hideLoadingScreen();
 
 const preloadCards = () => {
     createCards();
-    console.log(currentCardsArr);
     setTimeout(() => {
         currentCardsArr.forEach(card => {
             cardsPreloader.innerHTML += card;
         },100);
     });
 }
+
 
 const startGame = e => {
     e.preventDefault();
@@ -91,6 +92,8 @@ const startGame = e => {
         gameIsStarted = true;
 
         finalScoreOverlay.style.transform = "scale(0)";
+        finalScore.textContent = 0;
+        isFinalScoreDisplayed = false;
     } else {
         gameIsStarted = false;
         cardsLeft.textContent = 24;
@@ -107,10 +110,11 @@ const startGame = e => {
         cardSetThree.style.display = "block";
         cardSetFour.style.display = "block";
 
-        finalScore.textContent = totalScore;
-        finalScoreOverlay.style.transform = "scale(1)";
+        isFinalScoreDisplayed = true;
+        displayTotalScore(totalScore);
         updateHighscoresList();
 
+        finalScoreOverlay.style.color = "#eee"
         totalScoreElement.textContent = "0";
         fiveCardsInLine = false;
         totalScore = 0;
@@ -286,6 +290,25 @@ const showInfo = (e) => {
     }
 }
 
+
+const displayTotalScore = (totalScore) => {
+    if(totalScore) increaseTotalScore(totalScore, 0);
+    finalScoreOverlay.style.transform = "scale(1)";
+}
+
+
+const increaseTotalScore = (totalScore, startScore) => {
+    startScore++;
+    if(finalScore.textContent > 400) finalScoreOverlay.style.color = "#FFE140";
+    finalScore.textContent = startScore;
+    if(isFinalScoreDisplayed && startScore < totalScore) {
+        setTimeout(() => {
+            increaseTotalScore(totalScore, startScore);
+        },10);
+    } else if(!isFinalScoreDisplayed) finalScore.textContent = 0;
+}
+
+
 const updateHighscoresList = () => {
     if(highScores.length < 10) {
         highScores.push(totalScore);
@@ -308,16 +331,19 @@ highScores = JSON.parse(localStorage.getItem("highScores"));
 const displayHighscores = (e) => {
     e.preventDefault();
     if(isHighscoresDisplayed) {
-        highscoresOverlay.style.transform = "scale(0)";
+        highscoresOverlay.style.transformOrigin = "center";
+        highscoresOverlay.style.transform = "scale(0) translateY(40px) translateX(50px)";
         isHighscoresDisplayed = false;
     } else {
-        highscoresOverlay.style.transform = "scale(1";
+        highscoresOverlay.style.transformOrigin = "80% 100%";
+        highscoresOverlay.style.transform = "scale(1) translateY(0) translateX(0)";
         isHighscoresDisplayed = true;
     }
     highscoresOverlay.innerHTML = "";
     highscoresOverlay.innerHTML = "<h3>Highscores</h3>";
-    highScores.forEach(score => {
-        highscoresOverlay.innerHTML += `<div class="highscore-container"><h4>${score}</h4></div>`;
+    highScores.forEach((score, index) => {
+        highscoresOverlay.innerHTML += `<div class="highscore-container"><h4 class="black-bg-score">${index + 1}</h4><span>-</span>
+        <h4 class="black-bg-score">${score}</h4></div>`;
     });
 }
 
@@ -329,5 +355,5 @@ cardSetTwo.addEventListener("click", addCardFromPack);
 cardSetThree.addEventListener("click", addCardFromPack);
 cardSetFour.addEventListener("click", addCardFromPack);
 infoBtn.addEventListener("click", showInfo);
-closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)";})
+closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)"; isFinalScoreDisplayed = false; finalScore.textContent = 0;})
 hiScoreBtn.addEventListener("click", displayHighscores);
