@@ -372,8 +372,8 @@ body {
 } 
 
 .highscores {
-    top: 13%;
-    height: 370px;
+    top: 14%;
+    height: 400px;
     width: 250px;
     left: calc(50% - 125px);
     background: url("./img/background.jpg");
@@ -421,6 +421,25 @@ body {
 
 .highscore-container span {
     margin-top: 4px;
+}
+
+.overall-total-score {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: calc(100% - 3rem);
+    bottom: 1rem;
+    right: 1.5rem;
+}
+
+.overall-total-score p {
+    margin-top: .6rem;
+    margin-right: 1.5rem;
+}
+
+.overall-total-score h4 {
+    margin-top: .3rem;
+    width: 48%;
 }
 
 .final-score h3 {
@@ -483,4 +502,8 @@ body {
         left: calc(50% - 175px);
         width: 350px;
     }   
+
+    .highscores {
+        top: 8%;
+    }
 }

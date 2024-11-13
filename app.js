@@ -45,6 +45,7 @@ const loadingScreen = document.querySelector(".loading-screen");
 const cardsPreloader = document.querySelector(".cards-preloader")
 
 let totalScore = 0;
+let overallTotalScore = 0;
 let sessionCardsValues = {}; 
 let fiveCardsInLine = false;
 let gameIsStarted = false;
@@ -117,6 +118,8 @@ const startGame = e => {
         finalScoreOverlay.style.color = "#eee"
         totalScoreElement.textContent = "0";
         fiveCardsInLine = false;
+        overallTotalScore += totalScore;
+        localStorage.setItem("overallTotalScore", overallTotalScore);
         totalScore = 0;
         e.target.textContent = "Start";
     }
@@ -327,6 +330,11 @@ if(!localStorage.getItem("highScores")) {
 }
 highScores = JSON.parse(localStorage.getItem("highScores"));
 
+if(!localStorage.getItem("overallTotalScore")) {
+    localStorage.setItem("overallTotalScore", overallTotalScore);
+}
+overallTotalScore = +localStorage.getItem("overallTotalScore");
+
 
 const displayHighscores = (e) => {
     e.preventDefault();
@@ -345,6 +353,8 @@ const displayHighscores = (e) => {
         highscoresOverlay.innerHTML += `<div class="highscore-container"><h4 class="black-bg-score">${index + 1}</h4><span>-</span>
         <h4 class="black-bg-score">${score}</h4></div>`;
     });
+    highscoresOverlay.innerHTML += `<div class="overall-total-score"><p>Total Score</p>
+    <h4 class="black-bg-score">${overallTotalScore}</h4></div>`;
 }
 
 // Event Listeners
