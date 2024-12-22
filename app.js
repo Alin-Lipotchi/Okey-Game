@@ -6,11 +6,11 @@ window.addEventListener("contextmenu", e => e.preventDefault());
 
 let currentCardsArr = [];
 
-const cardPlaceOne = document.querySelector("#card-place-1");
-const cardPlaceTwo = document.querySelector("#card-place-2");
-const cardPlaceThree = document.querySelector("#card-place-3");
-const cardPlaceFour = document.querySelector("#card-place-4");
-const cardPlaceFive = document.querySelector("#card-place-5");
+const deckPlaceOne = document.querySelector("#deck-place-1");
+const deckPlaceTwo = document.querySelector("#deck-place-2");
+const deckPlaceThree = document.querySelector("#deck-place-3");
+const deckPlaceFour = document.querySelector("#deck-place-4");
+const deckPlaceFive = document.querySelector("#deck-place-5");
 
 const sessionPlaceOne = document.querySelector("#session-place-1");
 const sessionPlaceTwo = document.querySelector("#session-place-2");
@@ -31,11 +31,11 @@ const fireworks = document.querySelector(".fireworks");
 const startBtn = document.querySelector("#start-button");
 
 const infoBtn = document.querySelector("#info-button");
-const infoBox = document.querySelector(".info-box");
-infoBox.style.display = "none";
-const highscoresOverlay = document.querySelector(".highscores");
+const infoScreen = document.querySelector(".info-screen");
+infoScreen.style.display = "none";
+const highscoresWindow = document.querySelector(".highscores");
 
-const finalScoreOverlay = document.querySelector(".final-score");
+const finalScoreWindow = document.querySelector(".final-score");
 const finalScore = document.querySelector(".final-score-value");
 const closeButton = document.querySelector(".close-button");
 const hiScoreBtn = document.querySelector("#high-scores-button");
@@ -82,27 +82,27 @@ const startGame = e => {
     e.preventDefault();
     if(e.target.textContent === "Start") {
         createCards();
-        createNewCardInPlace(cardPlaceOne);
-        createNewCardInPlace(cardPlaceTwo);
-        createNewCardInPlace(cardPlaceThree);
-        createNewCardInPlace(cardPlaceFour);
-        createNewCardInPlace(cardPlaceFive);
+        createNewCardInDeck(deckPlaceOne);
+        createNewCardInDeck(deckPlaceTwo);
+        createNewCardInDeck(deckPlaceThree);
+        createNewCardInDeck(deckPlaceFour);
+        createNewCardInDeck(deckPlaceFive);
 
         e.target.textContent = "End";
         fiveCardsInLine = true;
         gameIsStarted = true;
 
-        finalScoreOverlay.style.transform = "scale(0)";
+        finalScoreWindow.style.transform = "scale(0)";
         finalScore.textContent = 0;
         isFinalScoreDisplayed = false;
     } else {
         gameIsStarted = false;
         cardsLeft.textContent = 24;
-        removeCardInPlace(cardPlaceOne);
-        removeCardInPlace(cardPlaceTwo);
-        removeCardInPlace(cardPlaceThree);
-        removeCardInPlace(cardPlaceFour);
-        removeCardInPlace(cardPlaceFive);
+        removeCardInDeck(deckPlaceOne);
+        removeCardInDeck(deckPlaceTwo);
+        removeCardInDeck(deckPlaceThree);
+        removeCardInDeck(deckPlaceFour);
+        removeCardInDeck(deckPlaceFive);
 
         removeCardInSession(null, false);
 
@@ -115,7 +115,7 @@ const startGame = e => {
         displayTotalScore(totalScore);
         updateHighscoresList();
 
-        finalScoreOverlay.style.color = "#eee"
+        finalScoreWindow.style.color = "#eee"
         totalScoreElement.textContent = "0";
         fiveCardsInLine = false;
         overallTotalScore += totalScore;
@@ -139,14 +139,14 @@ preloadCards();
 const handleCardClick = (e) => {
     e.preventDefault();
     if(e.type === "click") {
-        if(e.target.parentElement.dataset.place === "card-line") {
+        if(e.target.parentElement.dataset.place === "deck-line") {
             putCardInSession(e.target);
         } else {
             removeCardInSession(e.target, true);
         }
     } else {
-        if(e.target.parentElement.dataset.place === "card-line") {
-            removeCardInPlace(e.target.parentElement);
+        if(e.target.parentElement.dataset.place === "deck-line") {
+            removeCardInDeck(e.target.parentElement);
         } else {
             removeCardInSession(e.target, true);
         }
@@ -154,7 +154,7 @@ const handleCardClick = (e) => {
 }
 
 
-const createNewCardInPlace = (e) => {
+const createNewCardInDeck = (e) => {
     let i = Math.floor(Math.random() * currentCardsArr.length);
     let el = currentCardsArr.splice(i, 1);
     cardsLeft.textContent = currentCardsArr.length;
@@ -164,7 +164,7 @@ const createNewCardInPlace = (e) => {
 }
 
 
-const removeCardInPlace = (card) => {
+const removeCardInDeck = (card) => {
     card.innerHTML = "";
     fiveCardsInLine = false;
 }
@@ -184,11 +184,11 @@ const putCardInSession = (card) => {
 
 const removeCardInSession = (card, back) => {
     if(back) {
-        if(!cardPlaceOne.innerHTML) cardPlaceOne.appendChild(card);
-        else if(!cardPlaceTwo.innerHTML) cardPlaceTwo.appendChild(card);
-        else if(!cardPlaceThree.innerHTML) cardPlaceThree.appendChild(card);
-        else if(!cardPlaceFour.innerHTML) cardPlaceFour.appendChild(card);
-        else if(!cardPlaceFive.innerHTML) cardPlaceFive.appendChild(card);
+        if(!deckPlaceOne.innerHTML) deckPlaceOne.appendChild(card);
+        else if(!deckPlaceTwo.innerHTML) deckPlaceTwo.appendChild(card);
+        else if(!deckPlaceThree.innerHTML) deckPlaceThree.appendChild(card);
+        else if(!deckPlaceFour.innerHTML) deckPlaceFour.appendChild(card);
+        else if(!deckPlaceFive.innerHTML) deckPlaceFive.appendChild(card);
         
     } else {
         sessionPlaceOne.innerHTML = "";
@@ -198,21 +198,20 @@ const removeCardInSession = (card, back) => {
 }
 
 
-const addCardFromPack = () => {
+const addCardFromSet = () => {
     if(gameIsStarted && !fiveCardsInLine && !sessionPlaceOne.innerHTML) {
         fiveCardsInLine = true;
-        if(!cardPlaceOne.innerHTML && currentCardsArr.length) createNewCardInPlace(cardPlaceOne);
-        if(!cardPlaceTwo.innerHTML && currentCardsArr.length) createNewCardInPlace(cardPlaceTwo);
-        if(!cardPlaceThree.innerHTML && currentCardsArr.length) createNewCardInPlace(cardPlaceThree);
-        if(!cardPlaceFour.innerHTML && currentCardsArr.length) createNewCardInPlace(cardPlaceFour);
-        if(!cardPlaceFive.innerHTML && currentCardsArr.length) createNewCardInPlace(cardPlaceFive);
+        if(!deckPlaceOne.innerHTML && currentCardsArr.length) createNewCardInDeck(deckPlaceOne);
+        if(!deckPlaceTwo.innerHTML && currentCardsArr.length) createNewCardInDeck(deckPlaceTwo);
+        if(!deckPlaceThree.innerHTML && currentCardsArr.length) createNewCardInDeck(deckPlaceThree);
+        if(!deckPlaceFour.innerHTML && currentCardsArr.length) createNewCardInDeck(deckPlaceFour);
+        if(!deckPlaceFive.innerHTML && currentCardsArr.length) createNewCardInDeck(deckPlaceFive);
 
         if(currentCardsArr.length < 16) cardSetFour.style.display = "none";
         if(currentCardsArr.length < 11) cardSetThree.style.display = "none";
         if(currentCardsArr.length < 6) cardSetTwo.style.display = "none";
         if(currentCardsArr.length < 1) cardSetOne.style.display = "none";
-    }
-    
+    } 
 }
 
 
@@ -284,25 +283,25 @@ const calculateSessionCards = (firstNum, isCons, isSameClr) => {
 
 const showInfo = (e) => {
     e.preventDefault();
-    if(infoBox.style.display === "none") {
-        infoBox.style.display = "block";
-        setTimeout(() => {infoBox.style.opacity = "1"}, 100);
+    if(infoScreen.style.display === "none") {
+        infoScreen.style.display = "block";
+        setTimeout(() => {infoScreen.style.opacity = "1"}, 100);
     } else {
-        infoBox.style.opacity = "0";
-        setTimeout(() => {infoBox.style.display = "none";}, 100);
+        infoScreen.style.opacity = "0";
+        setTimeout(() => {infoScreen.style.display = "none";}, 100);
     }
 }
 
 
 const displayTotalScore = (totalScore) => {
     if(totalScore) increaseTotalScore(totalScore, 0);
-    finalScoreOverlay.style.transform = "scale(1)";
+    finalScoreWindow.style.transform = "scale(1)";
 }
 
 
 const increaseTotalScore = (totalScore, startScore) => {
     startScore++;
-    if(finalScore.textContent > 400) finalScoreOverlay.style.color = "#FFE140";
+    if(finalScore.textContent >= 400) finalScoreWindow.style.color = "#FFE140";
     finalScore.textContent = startScore;
     if(isFinalScoreDisplayed && startScore < totalScore) {
         setTimeout(() => {
@@ -339,31 +338,31 @@ overallTotalScore = +localStorage.getItem("overallTotalScore");
 const displayHighscores = (e) => {
     e.preventDefault();
     if(isHighscoresDisplayed) {
-        highscoresOverlay.style.transformOrigin = "center";
-        highscoresOverlay.style.transform = "scale(0) translateY(40px) translateX(50px)";
+        highscoresWindow.style.transformOrigin = "center";
+        highscoresWindow.style.transform = "scale(0) translateY(40px) translateX(50px)";
         isHighscoresDisplayed = false;
     } else {
-        highscoresOverlay.style.transformOrigin = "80% 100%";
-        highscoresOverlay.style.transform = "scale(1) translateY(0) translateX(0)";
+        highscoresWindow.style.transformOrigin = "80% 100%";
+        highscoresWindow.style.transform = "scale(1) translateY(0) translateX(0)";
         isHighscoresDisplayed = true;
     }
-    highscoresOverlay.innerHTML = "";
-    highscoresOverlay.innerHTML = "<h3>Highscores</h3>";
+    highscoresWindow.innerHTML = "";
+    highscoresWindow.innerHTML = "<h3>Highscores</h3>";
     highScores.forEach((score, index) => {
-        highscoresOverlay.innerHTML += `<div class="highscore-container"><h4 class="black-bg-score">${index + 1}</h4><span>-</span>
+        highscoresWindow.innerHTML += `<div class="highscore-container"><h4 class="black-bg-score">${index + 1}</h4><span>-</span>
         <h4 class="black-bg-score">${score}</h4></div>`;
     });
-    highscoresOverlay.innerHTML += `<div class="overall-total-score"><p>Total Score</p>
+    highscoresWindow.innerHTML += `<div class="overall-total-score"><p>Total Score</p>
     <h4 class="black-bg-score">${overallTotalScore}</h4></div>`;
 }
 
 // Event Listeners
 
 startBtn.addEventListener("click", startGame);
-cardSetOne.addEventListener("click", addCardFromPack);
-cardSetTwo.addEventListener("click", addCardFromPack);
-cardSetThree.addEventListener("click", addCardFromPack);
-cardSetFour.addEventListener("click", addCardFromPack);
+cardSetOne.addEventListener("click", addCardFromSet);
+cardSetTwo.addEventListener("click", addCardFromSet);
+cardSetThree.addEventListener("click", addCardFromSet);
+cardSetFour.addEventListener("click", addCardFromSet);
 infoBtn.addEventListener("click", showInfo);
-closeButton.addEventListener("click", () => {finalScoreOverlay.style.transform = "scale(0)"; isFinalScoreDisplayed = false; finalScore.textContent = 0;})
+closeButton.addEventListener("click", () => {finalScoreWindow.style.transform = "scale(0)"; isFinalScoreDisplayed = false; finalScore.textContent = 0;})
 hiScoreBtn.addEventListener("click", displayHighscores);

@@ -20,12 +20,12 @@
             <h1>Okey Game</h1>
         </div>
         <div class="table">
-            <div class="card-slots">
-                <div data-place="card-line" id="card-place-1" class="placeholder"></div>
-                <div data-place="card-line" id="card-place-2" class="placeholder"></div>
-                <div data-place="card-line" id="card-place-3" class="placeholder"></div>
-                <div data-place="card-line" id="card-place-4" class="placeholder"></div>
-                <div data-place="card-line" id="card-place-5" class="placeholder"></div>
+            <div class="deck-slots">
+                <div data-place="deck-line" id="deck-place-1" class="placeholder"></div>
+                <div data-place="deck-line" id="deck-place-2" class="placeholder"></div>
+                <div data-place="deck-line" id="deck-place-3" class="placeholder"></div>
+                <div data-place="deck-line" id="deck-place-4" class="placeholder"></div>
+                <div data-place="deck-line" id="deck-place-5" class="placeholder"></div>
             </div>
             
             <div class="session">
@@ -38,18 +38,18 @@
                 
             </div>
 
-            <div class="deck-and-score">
-                <div class="deck">
+            <div class="set-and-score">
+                <div class="set">
                     <div class="placeholder">
-                        <div data-place="card-pack" id="card-set-1" class="card-set"></div>
-                        <div data-place="card-pack" id="card-set-2" class="card-set"></div>
-                        <div data-place="card-pack" id="card-set-3" class="card-set"></div>
-                        <div data-place="card-pack" id="card-set-4" class="card-set"></div>
+                        <div id="card-set-1" class="card-set"></div>
+                        <div id="card-set-2" class="card-set"></div>
+                        <div id="card-set-3" class="card-set"></div>
+                        <div id="card-set-4" class="card-set"></div>
                     </div>
                     <span>X</span>
                     <p id="cards-left" class="black-bg-score">24</p>
                 </div>
-                <div class="total-score">
+                <div class="total-score-container">
                     <span>Score</span>
                     <p id="total-score" class="black-bg-score">0</p>
                 </div>
@@ -60,7 +60,7 @@
                 <div class="fireworks"></div>
             </div>
 
-            <div class="info-box">
+            <div class="info-screen">
                 <div class="text-area">
                     <h2>How to play?</h2>
                     <p>Press the "Start" button to begin the game. Upon pressing the button you will receive 5 cards on the line.</p>
@@ -106,7 +106,7 @@
             
             <div class="final-score">
                 <h3>Your score</h3>
-                <span id="final-score-close-button" class="final-score-value">0</span>
+                <span class="final-score-value">0</span>
                 <button class="close-button">x</button>
             </div>
         </div>
@@ -114,7 +114,7 @@
         <div class="buttons">
             <button id="start-button" class="cmd-btn">Start</button>
             <button id="high-scores-button" class="cmd-btn">High Scores</button>
-            <button id="info-button" class="info">?</button>
+            <button id="info-button">?</button>
         </div>
     </div>
 </body>

@@ -105,7 +105,7 @@ body {
     margin: 0 auto;
 }
 
-.cmd-btn, .info, .close-button {
+.cmd-btn, #info-button, .close-button {
     width: 100px;
     margin: 1rem;
     color: #eee;
@@ -125,7 +125,7 @@ body {
     filter: brightness(1.2);
 }
 
-.card-slots {
+.deck-slots {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -175,7 +175,7 @@ body {
     font-size: 0.9rem;
 }
 
-.deck-and-score {
+.set-and-score {
     display: flex;
     justify-content: space-between;
     height: 30px;
@@ -185,18 +185,18 @@ body {
     outline: 2px ridge #405b48;
 }
 
-.deck, .total-score {
+.set, .total-score-container {
     display: flex;
     align-items: end;
     font-size: .9rem;
 }
 
-.deck-and-score span {
+.set-and-score span {
     margin: 0 .8rem;
     margin-bottom: 6px;
 }
 
-.deck-and-score .black-bg-score {
+.set-and-score .black-bg-score {
     margin-bottom: 2px;
 }
 
@@ -221,7 +221,7 @@ body {
     z-index: 1;
 }
 
-.session-cards .placeholder, .deck .placeholder {
+.session-cards .placeholder, .set .placeholder {
     position: relative;
     margin: 0;
 }
@@ -290,7 +290,7 @@ body {
     transition: .2s ease-in-out all;
 }
 
-.info, .close-button {
+#info-button, .close-button {
     position: absolute;
     right: 24px;
     bottom: 20px;
@@ -304,7 +304,7 @@ body {
     z-index: 4;
 }
 
-.info-box {
+.info-screen {
     width: 100%;
     height: calc(100% - 18px);
     position: absolute;
@@ -474,7 +474,7 @@ body {
         margin-right: auto;
     }
 
-    .deck-and-score {
+    .set-and-score {
         width: 380px;
         margin-left: auto;
         margin-right: auto;
@@ -489,7 +489,7 @@ body {
         top: calc(20%);
     }
 
-    .info {
+    #info-button {
         right: 32px;
         bottom: 16px;
     }
